@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->uuid('company_id');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->double('price', 10, 2);
+            $table->decimal('price', 10, 2);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 

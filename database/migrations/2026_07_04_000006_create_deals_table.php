@@ -10,7 +10,7 @@ return new class extends Migration {
             $table->uuid('id')->primary();
             $table->uuid('client_id');
             $table->uuid('service_id')->nullable();
-            $table->double('amount', 10, 2);
+            $table->decimal('amount', 10, 2);
             $table->enum('status', ['ACIQ', 'QAZANILDI', 'ITIRILDI'])->default('ACIQ');
             $table->timestamp('close_date')->nullable();
             $table->timestamp('created_at')->useCurrent();

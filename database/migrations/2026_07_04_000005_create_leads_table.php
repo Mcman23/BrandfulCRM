@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->string('source');
             $table->enum('status', ['YENI_MURACIET', 'ELAQE_SAXLANILDI', 'GORUS_TEYIN_EDILDI', 'TEKLIF_GONDERILDI', 'DANISIQ_GEDIR', 'QAZANILDI', 'ITIRILDI'])->default('YENI_MURACIET');
             $table->uuid('service_id')->nullable();
-            $table->double('budget', 10, 2)->nullable();
+            $table->decimal('budget', 10, 2)->nullable();
             $table->uuid('assigned_user')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();

@@ -9,7 +9,7 @@ return new class extends Migration {
         Schema::create('payments', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('client_id');
-            $table->double('amount', 10, 2);
+            $table->decimal('amount', 10, 2);
             $table->enum('status', ['ODENILDI', 'GOZLEMEDE', 'ODENILMEMIS'])->default('GOZLEMEDE');
             $table->timestamp('payment_date')->nullable();
             $table->timestamp('created_at')->useCurrent();

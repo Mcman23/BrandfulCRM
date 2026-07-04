@@ -1,9 +1,9 @@
 FROM php:8.3-apache
 
-# Install extensions
+# Install extensions including PostgreSQL support
 RUN apt-get update && apt-get install -y \
-    libpng-dev libonig-dev libxml2-dev libzip-dev unzip git \
-    && docker-php-ext-install pdo pdo_mysql mysqli mbstring xml gd zip \
+    libpng-dev libonig-dev libxml2-dev libzip-dev unzip git postgresql-client \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql mysqli mbstring xml gd zip \
     && a2enmod rewrite
 
 # Install Composer
@@ -34,3 +34,7 @@ RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available
 RUN echo '<Directory /var/www/html/public>\n    AllowOverride All\n    Require all granted\n</Directory>' >> /etc/apache2/apache2.conf
 
 EXPOSE 80
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost/up || exit 1

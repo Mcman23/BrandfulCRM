@@ -1,0 +1,24 @@
+#!/usr/bin/env php
+<?php
+use Illuminate\Foundation\Application;
+
+define('LARAVEL_START', microtime(true));
+
+/*
+|--------------------------------------------------------------------------
+| Run The Artisan Application
+|--------------------------------------------------------------------------
+*/
+$bindings = require __DIR__.'/bootstrap/app.php';
+$app = new Application(
+    $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__),
+);
+
+// Bootstrap the application
+$app->boot();
+
+$status = $app->handleCommand(
+    new Symfony\Component\Console\Input\ArgvInput
+);
+
+exit($status);

@@ -1,0 +1,11 @@
+/node_modules
+/vendor
+/.env
+/storage/app/*
+/storage/logs/*
+/storage/framework/*
+!storage/app/public/.gitkeep
+!storage/logs/.gitkeep
+!storage/framework/cache/data/.gitkeep
+!storage/framework/sessions/.gitkeep
+!storage/framework/views/.gitkeep

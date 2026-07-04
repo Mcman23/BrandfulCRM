@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    restart: always
+    ports:
+      - "8000:80"
+    environment:
+      DB_HOST: db
+      DB_DATABASE: bizcrm
+      DB_USERNAME: bizcrm
+      DB_PASSWORD: bizcrm123
+    depends_on:
+      - db
+    volumes:
+      - .:/var/www/html
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: bizcrm
+      MYSQL_USER: bizcrm
+      MYSQL_PASSWORD: bizcrm123
+      MYSQL_ROOT_PASSWORD: root123
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+volumes:
+  db_data:

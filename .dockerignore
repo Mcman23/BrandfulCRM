@@ -1,0 +1,10 @@
+.git
+.gitignore
+.editorconfig
+.env.example
+node_modules
+docker-compose.yml
+README.md
+.github
+build
+vendor/.git

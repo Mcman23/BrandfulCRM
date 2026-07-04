@@ -11,6 +11,11 @@ use App\Http\Controllers\Web\UserController;
 use App\Http\Controllers\Web\SettingsController;
 use App\Http\Controllers\Web\CompanyFilterController;
 
+// Health check endpoint for Railway
+Route::get('/up', function () {
+    return response()->json(['status' => 'ok'], 200);
+});
+
 // Auth
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);

@@ -21,9 +21,14 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-# Seed if fresh install
+# Seed if fresh install (safe to ignore errors if already seeded)
 php artisan db:seed --force 2>/dev/null || true
 
-# Start server
-echo "Starting BizCRM on port ${PORT:-8000}..."
-php artisan serve --host 0.0.0.0 --port ${PORT:-8000}
+# Configure Apache to listen on Railway's dynamic PORT
+if [ -n "$PORT" ]; then
+  sed -i "s/80/${PORT}/g" /etc/apache2/ports.conf
+  sed -i "s/:80/:${PORT}/g" /etc/apache2/sites-available/000-default.conf
+fi
+
+echo "Starting BizCRM (Apache) on port ${PORT:-80}..."
+apache2-foreground

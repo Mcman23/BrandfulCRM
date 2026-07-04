@@ -12,12 +12,21 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy app
 COPY . /var/www/html/
 
+WORKDIR /var/www/html
+
+# Ensure required writable directories exist before setting permissions
+RUN mkdir -p /var/www/html/bootstrap/cache \
+    && mkdir -p /var/www/html/storage/app/public \
+    && mkdir -p /var/www/html/storage/framework/cache/data \
+    && mkdir -p /var/www/html/storage/framework/sessions \
+    && mkdir -p /var/www/html/storage/framework/views \
+    && mkdir -p /var/www/html/storage/logs
+
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Install dependencies
-WORKDIR /var/www/html
 RUN composer install --optimize-autoloader --no-dev --no-interaction
 
 # Apache DocumentRoot to public/

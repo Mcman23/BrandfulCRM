@@ -20,11 +20,19 @@ return new class extends Migration {
 
             $table->index('status');
         });
+
+        // users.company_id references companies.id - added here since
+        // the users table is created before companies in migration order.
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('set null');
+        });
     }
 
     public function down(): void
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['company_id']);
+        });
         Schema::dropIfExists('companies');
     }
 };
-

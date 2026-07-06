@@ -17,7 +17,8 @@ return new class extends Migration {
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('set null');
+            // Foreign key to companies added later, once that table exists
+            // (see 2026_07_04_000002_create_companies_table.php).
             $table->index('email');
             $table->index('company_id');
         });
@@ -28,4 +29,3 @@ return new class extends Migration {
         Schema::dropIfExists('users');
     }
 };
-

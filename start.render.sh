@@ -3,10 +3,13 @@ set -e
 
 echo "=== BizCRM Render Deployment ==="
 
-# Generate app key if not set
+# APP_KEY should come from Render's dashboard env vars (persists across
+# deploys). If somehow missing, generate one for THIS process only -
+# never try to write it to a .env file, since no .env file exists in
+# the container (Render injects env vars directly into the process).
 if [ -z "$APP_KEY" ]; then
-  echo "Generating APP_KEY..."
-  php artisan key:generate --force
+  echo "WARNING: APP_KEY not set via environment, generating a temporary one..."
+  export APP_KEY="base64:$(php -r 'echo base64_encode(random_bytes(32));')"
 fi
 
 # Wait for database to be ready

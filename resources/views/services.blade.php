@@ -70,6 +70,6 @@ function editService(s) {
     document.getElementById('sf_price').value = s.price;
     document.getElementById('serviceModal').classList.remove('hidden');
 }
-function closeServiceModal() { document.getElementById('serviceModal').classList.remove('hidden'); }
+function closeServiceModal() { document.getElementById('serviceModal').classList.add('hidden'); }
 </script>
 @endsection

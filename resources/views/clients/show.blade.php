@@ -45,8 +45,12 @@
             <div class="p-6 pb-0"><h3 class="text-lg font-semibold">Satışlar</h3></div>
             <div class="p-6 pt-0">
                 @foreach ($client->deals as $d)
+                    @php $dealExpenses = $d->expensesTotal(); @endphp
                     <div class="flex items-center justify-between border-b pb-2">
-                        <div><p class="text-sm font-medium">{{ $d->service->name ?? 'Xidmət' }}</p><p class="text-xs text-muted-foreground">{{ number_format($d->amount, 2) }} AZN</p></div>
+                        <div>
+                            <p class="text-sm font-medium">{{ $d->service->name ?? 'Xidmət' }}</p>
+                            <p class="text-xs text-muted-foreground">Gəlir: {{ number_format($d->amount, 2) }} AZN @if($dealExpenses > 0)· Xərc: {{ number_format($dealExpenses, 2) }} AZN · Mənfəət: {{ number_format($d->profit(), 2) }} AZN @endif</p>
+                        </div>
                         <span class="text-xs px-2 py-0.5 rounded-full @if($d->status->value==='QAZANILDI')bg-green-500 text-white@elseif($d->status->value==='ITIRILDI')bg-red-500 text-white@else bg-gray-200 @endif">{{ $d->status->label() }}</span>
                     </div>
                 @endforeach

@@ -65,5 +65,11 @@ class Company extends Model
     {
         return $this->services()->count();
     }
+
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class, 'company_id');
+    }
+
 }
 

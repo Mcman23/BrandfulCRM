@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             ClientSeeder::class,
             LeadSeeder::class,
             DealSeeder::class,
+            ExpenseSeeder::class,
             PaymentSeeder::class,
             FollowUpSeeder::class,
             ActivitySeeder::class,

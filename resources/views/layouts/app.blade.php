@@ -87,7 +87,7 @@
         .kanban-column.drag-over { background: hsl(var(--accent)); }
     </style>
 </head>
-<body class="bg-background text-foreground">
+<body class="bg-background text-foreground overflow-x-hidden">
     <div class="flex min-h-screen">
         <!-- Sidebar -->
         <aside class="hidden md:flex w-64 flex-col border-r bg-card h-screen sticky top-0">
@@ -104,6 +104,7 @@
                         ['route' => 'pipeline', 'label' => 'Pipeline', 'icon' => '📋'],
                         ['route' => 'services', 'label' => 'Xidmətlər', 'icon' => '🔧'],
                         ['route' => 'sales', 'label' => 'Satış paneli', 'icon' => '📈'],
+                        ['route' => 'expenses', 'label' => 'Xərclər', 'icon' => '💰'],
                         ['route' => 'follow-ups', 'label' => 'Geri dönüşlər', 'icon' => '📅'],
                         ['route' => 'users', 'label' => 'İstifadəçilər', 'icon' => '👤'],
                         ['route' => 'settings', 'label' => 'Tənzimləmələr', 'icon' => '⚙️'],
@@ -145,7 +146,7 @@
                     </form>
                 </div>
             </header>
-            <main class="flex-1 p-4 md:p-6">
+            <main class="flex-1 p-4 pb-24 md:p-6 md:pb-6 overflow-x-hidden">
                 @if(session('success'))
                     <div class="mb-4 rounded-md bg-green-500/10 border border-green-500/20 p-3 text-sm text-green-600">{{ session('success') }}</div>
                 @endif

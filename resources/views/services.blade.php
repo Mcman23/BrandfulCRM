@@ -6,7 +6,7 @@
         <div><h1 class="text-2xl font-bold">Xidmətlər</h1><p class="text-sm text-muted-foreground">Təklif olunan xidmətlər</p></div>
         <button onclick="openServiceModal()" class="h-10 px-4 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90">+ Yeni xidmət</button>
     </div>
-    <div class="rounded-lg border bg-card shadow-sm">
+    <div class="rounded-lg border bg-card shadow-sm overflow-x-auto">
         <table class="w-full text-sm">
             <thead><tr class="border-b">
                 <th class="h-12 px-4 text-left font-medium text-muted-foreground">Ad</th>

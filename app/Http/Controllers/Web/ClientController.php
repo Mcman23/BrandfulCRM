@@ -32,7 +32,7 @@ class ClientController extends Controller
     public function show($id)
     {
         $client = Client::with([
-            'company', 'leads.service', 'leads.assignedTo:id,name', 'deals.service', 'payments',
+            'company', 'leads.service', 'leads.assignedTo:id,name', 'deals.service', 'deals.expenses', 'payments',
             'followUps' => fn($q) => $q->orderBy('reminder_date', 'asc'),
             'activities.user:id,name' => fn($q) => $q->orderBy('date', 'desc'),
         ])->findOrFail($id);

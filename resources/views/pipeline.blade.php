@@ -6,11 +6,12 @@
         <div><h1 class="text-2xl font-bold">Pipeline</h1><p class="text-sm text-muted-foreground">Kanban lövhəsi — drag & drop</p></div>
         <button onclick="openLeadModal()" class="h-10 px-4 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90">+ Yeni lead</button>
     </div>
+    <p class="text-xs text-muted-foreground md:hidden">👉 Sütunlar arasında keçmək üçün sola/sağa sürüşdürün, statusu dəyişmək üçün kartın altındakı menyudan seçin</p>
     <div class="overflow-x-auto pb-4">
         <div class="flex gap-4 min-w-max">
             @foreach ($columns as $col)
                 @php $colLeads = $leads->where('status', $col['status']); @endphp
-                <div class="kanban-column w-72 rounded-lg bg-muted/50 p-3" data-status="{{ $col['status']->value }}"
+                <div class="kanban-column w-64 sm:w-72 rounded-lg bg-muted/50 p-3 flex-shrink-0" data-status="{{ $col['status']->value }}"
                     ondragover="event.preventDefault(); this.classList.add('drag-over')"
                     ondragleave="this.classList.remove('drag-over')"
                     ondrop="dropLead('{{ $col['status']->value }}', this)">
@@ -36,6 +37,16 @@
                                     @if ($lead->budget)<span class="text-xs font-semibold">{{ number_format($lead->budget, 2) }} AZN</span>@endif
                                 </div>
                                 @if ($lead->service)<p class="text-xs text-muted-foreground mt-2">{{ $lead->service->name }}</p>@endif
+                                <div class="md:hidden mt-2 pt-2 border-t">
+                                    <select class="w-full h-9 rounded-md border border-input bg-background px-2 text-xs" onchange="if(this.value){moveLead('{{ $lead->id }}', this.value)}">
+                                        <option value="">Sütuna köçür...</option>
+                                        @foreach ($columns as $mc)
+                                            @if ($mc['status']->value !== $col['status']->value)
+                                                <option value="{{ $mc['status']->value }}">{{ $mc['label'] }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         @endforeach
                         @if ($colLeads->isEmpty())<p class="text-xs text-muted-foreground text-center py-4">Boş</p>@endif
@@ -82,12 +93,15 @@ function dragStart(id, el) { draggedId = id; el.classList.add('dragging'); }
 function dropLead(status, el) {
     el.classList.remove('drag-over');
     if (draggedId) {
-        fetch('{{ route("pipeline") }}/' + draggedId + '/status', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}', 'Accept': 'application/json' },
-            body: JSON.stringify({ status: status })
-        }).then(() => location.reload());
+        moveLead(draggedId, status);
     }
+}
+function moveLead(id, status) {
+    fetch('{{ route("pipeline") }}/' + id + '/status', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}', 'Accept': 'application/json' },
+        body: JSON.stringify({ status: status })
+    }).then(() => location.reload());
 }
 function openLeadModal() { document.getElementById('leadModal').classList.remove('hidden'); }
 function closeLeadModal() { document.getElementById('leadModal').classList.add('hidden'); }

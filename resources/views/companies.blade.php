@@ -6,7 +6,7 @@
         <div><h1 class="text-2xl font-bold">Şirkətlər</h1><p class="text-sm text-muted-foreground">Bütün biznesləri idarə edin</p></div>
         <button onclick="openModal()" class="h-10 px-4 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90">+ Yeni şirkət</button>
     </div>
-    <div class="rounded-lg border bg-card shadow-sm">
+    <div class="rounded-lg border bg-card shadow-sm overflow-x-auto">
         <table class="w-full text-sm">
             <thead><tr class="border-b">
                 <th class="h-12 px-4 text-left font-medium text-muted-foreground">Şirkət adı</th>

@@ -10,6 +10,7 @@ use App\Http\Controllers\Web\FollowUpController;
 use App\Http\Controllers\Web\UserController;
 use App\Http\Controllers\Web\SettingsController;
 use App\Http\Controllers\Web\CompanyFilterController;
+use App\Http\Controllers\Web\ExpenseController;
 
 // Health check endpoint for Railway
 Route::get('/up', function () {
@@ -57,6 +58,12 @@ Route::middleware('auth')->group(function () {
 
     // Sales
     Route::get('/sales', [SalesController::class, 'index'])->name('sales');
+
+    // Expenses
+    Route::get('/expenses', [ExpenseController::class, 'index'])->name('expenses');
+    Route::post('/expenses', [ExpenseController::class, 'store']);
+    Route::put('/expenses/{id}', [ExpenseController::class, 'update']);
+    Route::delete('/expenses/{id}', [ExpenseController::class, 'destroy']);
 
     // Follow-ups
     Route::get('/follow-ups', [FollowUpController::class, 'index'])->name('follow-ups');

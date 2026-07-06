@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\FollowUpController;
 use App\Http\Controllers\Api\ActivityController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\ExpenseController;
 
 // Auth
 Route::post('/auth/login', [AuthController::class, 'login']);
@@ -34,6 +35,9 @@ Route::middleware('auth:sanctum')->name('api.')->group(function () {
     // Deals
     Route::apiResource('deals', DealController::class);
     Route::get('/deals/stats', [DealController::class, 'stats']);
+
+    // Expenses
+    Route::apiResource('expenses', ExpenseController::class);
 
     // Payments
     Route::apiResource('payments', PaymentController::class);

@@ -42,5 +42,21 @@ class Deal extends Model
     {
         return $this->belongsTo(Service::class, 'service_id');
     }
+
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class, 'deal_id');
+    }
+
+    public function expensesTotal(): float
+    {
+        return (float) $this->expenses()->sum('amount');
+    }
+
+    public function profit(): float
+    {
+        return (float) $this->amount - $this->expensesTotal();
+    }
+
 }
 

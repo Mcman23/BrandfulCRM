@@ -35,7 +35,7 @@
                     <td class="p-4 font-medium"><a href="{{ route('clients.show', $c->id) }}" class="hover:text-primary">{{ $c->client_name }}</a></td>
                     <td class="p-4">{{ $c->client_company_name ?: '—' }}</td>
                     <td class="p-4">{{ $c->phone ?: '—' }}</td>
-                    <td class="p-4">{{ $c->industry ? '<span class="text-xs border px-2 py-0.5 rounded-full">'.$c->industry.'</span>' : '—' }}</td>
+                    <td class="p-4">{!! $c->industry ? '<span class="text-xs border px-2 py-0.5 rounded-full whitespace-nowrap">'.e($c->industry).'</span>' : '—' !!}</td>
                     <td class="p-4 text-sm text-muted-foreground">{{ $c->company->company_name ?? '—' }}</td>
                     <td class="p-4"><div class="flex gap-1">
                         <a href="{{ route('clients.show', $c->id) }}" class="p-2 hover:bg-accent rounded-md">👁️</a>
@@ -62,7 +62,7 @@
             @csrf
             <input type="hidden" name="_method" id="clientMethod" value="">
             <input type="hidden" name="company_id" id="cf_company">
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div><label class="text-sm font-medium">Müştəri adı</label><input name="client_name" id="cf_name" required class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-1" /></div>
                 <div><label class="text-sm font-medium">Şirkət adı</label><input name="client_company_name" id="cf_cname" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-1" /></div>
                 <div><label class="text-sm font-medium">Telefon</label><input name="phone" id="cf_phone" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-1" /></div>

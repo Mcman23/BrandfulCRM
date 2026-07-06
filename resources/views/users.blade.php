@@ -3,7 +3,7 @@
 @section('content')
 <div class="space-y-6">
     <div><h1 class="text-2xl font-bold">İstifadəçilər</h1><p class="text-sm text-muted-foreground">Sistem istifadəçiləri</p></div>
-    <div class="rounded-lg border bg-card shadow-sm">
+    <div class="rounded-lg border bg-card shadow-sm overflow-x-auto">
         <table class="w-full text-sm">
             <thead><tr class="border-b">
                 <th class="h-12 px-4 text-left font-medium text-muted-foreground">Ad</th>

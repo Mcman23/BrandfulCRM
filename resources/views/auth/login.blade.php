@@ -26,7 +26,7 @@
                     class="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
             <label class="flex items-center gap-2 text-sm">
-                <input type="checkbox" name="remember" class="rounded" checked /> Məni xatırla
+                <input type="checkbox" name="remember" value="1" class="rounded" checked /> Məni xatırla
             </label>
             <button type="submit" class="w-full h-10 rounded-md bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors">
                 Daxil ol

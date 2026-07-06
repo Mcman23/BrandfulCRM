@@ -14,10 +14,12 @@ RUN mkdir -p bootstrap/cache storage/app/public storage/framework/cache/data \
     storage/framework/sessions storage/framework/views storage/logs \
     && chmod -R 775 storage bootstrap/cache
 
-# --no-scripts: skip "artisan package:discover" during build.
-# It fails in minimal Docker build stages because the app isn't bootstrapped yet
-# (no APP_KEY / env vars). We run package:discover at container startup instead.
-RUN composer install --optimize-autoloader --no-dev --no-interaction --no-scripts
+# Autoloader bug is fixed now, so composer's normal scripts
+# (postAutoloadDump + package:discover) run cleanly during build.
+# This pre-generates bootstrap/cache/packages.php + services.php,
+# so all framework + package service providers (auth, jwt-auth, etc.)
+# are correctly registered before the app ever boots at runtime.
+RUN composer install --optimize-autoloader --no-dev --no-interaction
 
 COPY start.render.sh /var/www/html/start.render.sh
 RUN chmod +x /var/www/html/start.render.sh

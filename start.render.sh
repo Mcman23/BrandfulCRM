@@ -9,11 +9,6 @@ if [ -z "$APP_KEY" ]; then
   php artisan key:generate --force
 fi
 
-# Discover packages now that env/config context is available
-echo "Discovering packages..."
-composer dump-autoload --optimize --no-interaction || true
-php artisan package:discover --ansi
-
 # Wait for database to be ready
 echo "Waiting for database..."
 sleep 5

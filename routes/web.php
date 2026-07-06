@@ -84,20 +84,3 @@ Route::get('/toggle-theme', function() {
     return response()->noContent();
 })->name('toggle.theme');
 
-// TEMPORARY diagnostic/fix route - remove after use
-Route::get('/__fix-industry-data-tmp', function () {
-    $clients = \App\Models\Client::all();
-    $report = [];
-    foreach ($clients as $c) {
-        $original = $c->industry;
-        if ($original && (str_contains($original, '<') || str_contains($original, '&lt;'))) {
-            // Decode any HTML entities first, then strip all tags to recover the plain value
-            $decoded = html_entity_decode($original, ENT_QUOTES | ENT_HTML5);
-            $clean = trim(strip_tags($decoded));
-            $c->industry = $clean;
-            $c->save();
-            $report[] = ['id' => $c->id, 'name' => $c->client_name, 'before' => $original, 'after' => $clean];
-        }
-    }
-    return response()->json(['fixed_count' => count($report), 'details' => $report]);
-});
